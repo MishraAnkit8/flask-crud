@@ -44,18 +44,26 @@ flask run
 
 
 
-flask-crud/
-├── app/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── routes.py
-│   ├── templates/
-│   ├── static/
-├── migrations/
-├── venv/
-├── crudapp.py
-├── requirements.txt
-├── config.py
-├── README.md
-├── .gitignore
-├── .flaskenv
+# Flask CRUD Application
+
+## Project Structure
+
+| Path                 | Description                          |
+|----------------------|--------------------------------------|
+| `flask-crud/`        | Root directory of the project.      |
+| ├── `app/`           | Contains the main application files.|
+| │   ├── `__init__.py`| Initializes the Flask application.  |
+| │   ├── `models.py`  | Defines the database models.        |
+| │   ├── `routes.py`  | Contains the application routes.    |
+| │   ├── `templates/` | Holds HTML templates for the app.   |
+| │   ├── `static/`    | Contains static files (CSS, JS, etc.).|
+| ├── `migrations/`    | Directory for database migrations.  |
+| ├── `venv/`          | Virtual environment for dependencies.|
+| ├── `crudapp.py`     | Main application entry point.       |
+| ├── `requirements.txt` | Lists project dependencies.        |
+| ├── `config.py`      | Configuration settings for the app. |
+| ├── `README.md`      | Documentation for the project.      |
+| ├── `.gitignore`     | Specifies files to ignore in Git.   |
+| ├── `.flaskenv`      | Environment variables for Flask.    |
+
+
