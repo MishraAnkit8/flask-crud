@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input id="title" class="form-control" type="text" placeholder="Title" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="description" class="form-control" cols="100" placeholder="Add a Description" required></textarea>
+                    </div>
+                    <button id="add-button" class="btn btn-primary">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.id }}</td>
+                    <td><strong>{{ entry.title }}</strong></td>
+                    <td>{{ entry.description }}</td>
+                    <td>
+                        <a class="{{ 'btn btn-success' if entry.status else 'btn btn-dark'}}"
+                           href="/turn/{{ entry.id }}">
+                            Turn Status
+                        </a>
+                        <a class="btn btn-danger"
+                           href="/delete/{{ entry.id }}">
+                            Delete
+                        </a>
+                        <a class="btn btn-info"
+                           href="/update/{{ entry.id }}">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// JavaScript to handle form submission using fetch API
+document.getElementById('add-button').addEventListener('click', function(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Get values from the input fields
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+
+    // Prepare payload as a JSON object
+    const payload = {
+        title: title,
+        description: description
+    };
+
+    // Send data to the server using fetch
+    fetch('/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Error in the request');
+        }
+    })
+    .then(data => {
+        // Handle success (you could refresh the table or redirect as needed)
+        console.log('Success:', data);
+        alert('Entry added successfully!');
+        window.location.reload(); // Reload page to update the table
+    })
+    .catch(error => {
+        // Handle errors
+        console.error('Error:', error);
+        alert('Error adding entry.');
+    });
+});
+</script>
+
+{% endblock %}
